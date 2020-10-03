@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 checkPos = transform.position + direction.normalized * DistanceToCheck;
                     checkPos.y = transform.position.y;
-                    Collider[] colliders = Physics.OverlapCapsule(checkPos - new Vector3(0, transform.localScale.y / 2), checkPos + new Vector3(0, transform.localScale.y / 2), SphereRadius);
+                    Collider[] colliders = Physics.OverlapBox(checkPos, new Vector3(SphereRadius, transform.localScale.y / 2, SphereRadius));
                     List<Pickup> pickups = new List<Pickup>();
                     foreach (var item in colliders)
                     {
