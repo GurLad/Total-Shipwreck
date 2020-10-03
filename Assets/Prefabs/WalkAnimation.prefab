@@ -62,7 +62,7 @@ MonoBehaviour:
   AffectPosition: 0
   AffectActive: 0
   AffectMain: 0
-  AffectAll: 0
+  AffectAll: 1
   ActivateOnStart: 0
   FindMainByName: 
   PreviousGoal: 0
