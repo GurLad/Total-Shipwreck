@@ -63,7 +63,11 @@
                 }
                 // Increase brightness of nearby pixels
                 float size = col.r + col.g + col.b;
-                if (size <= 2.25f)
+                if (size < 0.25f)
+                {
+                    size = 0.25f;
+                }
+                if (size <= 2.75f)
                 {
                     col.rgb /= 9;
                     for (float k = -1; k <= 1; k++)

@@ -12,6 +12,8 @@ public class GameController : MonoBehaviour
     public float MaxWaterValue;
     [Header("Objects")]
     public MoveWater WaterObject;
+    public PPTScript RecordingShader;
+    public FollowObject Camera;
     [Header("UI")]
     public Image WaterIndicator;
     [HideInInspector]
@@ -34,5 +36,14 @@ public class GameController : MonoBehaviour
             SceneManager.LoadScene(Application.loadedLevel);
         }
         WaterObject.HeightMod = WaterValue;
+    }
+    public void SetPlayer(PirateController pirate)
+    {
+        pirate.Active = true;
+        Camera.Target = pirate.transform;
+    }
+    public void SetRecording(bool mode)
+    {
+        RecordingShader.enabled = mode;
     }
 }

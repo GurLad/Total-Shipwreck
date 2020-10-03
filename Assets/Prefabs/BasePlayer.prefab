@@ -81,13 +81,15 @@ MonoBehaviour:
   Force: 5
   ResetForce: 5
   Accuracy: 1
+  RecordRate: 1
   DistanceToCheck: 0.75
   SphereRadius: 0.75
   CheckHeight: 1.5
   IdleAnimation: {fileID: 0}
   WalkAnimation: {fileID: 0}
   HoldAnimation: {fileID: 1268019211265934910}
-  Active: 1
+  RecordParticle: {fileID: 1572095103242824168, guid: da7cded7e6b51ae479d1dc3c76a91119, type: 3}
+  active: 0
 --- !u!114 &7705542230902656896
 MonoBehaviour:
   m_ObjectHideFlags: 0

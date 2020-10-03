@@ -5,7 +5,7 @@ using static SavedData;
 
 public static class Control
 {
-    public enum CB { Pickup, Use }
+    public enum CB { Pickup, Use, Record }
     public enum CM { Keyboard, Controller }
     public enum Axis { X, Y }
     public static float DeadZone = 0.3f;
