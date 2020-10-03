@@ -35,6 +35,11 @@ public class PlayerController : MonoBehaviour
             {
                 transform.LookAt(transform.position + direction);
             }
+            // Use items
+            if (Control.GetButtonDown(Control.CB.Use) && item != null)
+            {
+                new List<Trigger>(item.GetComponents<Trigger>()).ForEach(a => a.Activate());
+            }
             // Items
             if (Control.GetButtonDown(Control.CB.Pickup))
             {
