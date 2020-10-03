@@ -62,10 +62,13 @@ public class PlayerController : MonoBehaviour
     }
     private Vector3 Move()
     {
+        float tempY = rigidbody.velocity.y;
+        rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
         if (rigidbody.velocity.magnitude > Speed)
         {
             rigidbody.velocity = rigidbody.velocity.normalized * Speed;
         }
+        rigidbody.velocity = new Vector3(rigidbody.velocity.x, tempY, rigidbody.velocity.z);
         Vector3 TargetVelocity = new Vector3(Control.GetAxis(Control.Axis.X), 0, Control.GetAxis(Control.Axis.Y)) * Speed;
         if (TargetVelocity == Vector3.zero)
         {
@@ -93,7 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 force = TargetVelocity * Force;
             force.y = 0;
-            rigidbody.AddForce(TargetVelocity * Force);
+            rigidbody.AddForce(force);
         }
         Vector3 temp = rigidbody.velocity;
         temp.y = 0;
