@@ -74,7 +74,7 @@ public class AdvancedAnimation : MonoBehaviour
     public bool FinishedHalf = false;
     [HideInInspector]
     public List<IAdvancedAnimationListener> AdvancedAnimationListeners { get; private set; }
-    [HideInInspector]
+    //[HideInInspector]
     public bool Ordered = false;
     private bool active = false;
     private List<Transform> Parts;

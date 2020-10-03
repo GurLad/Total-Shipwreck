@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [Header("Animations")]
     public AdvancedAnimation IdleAnimation;
     public AdvancedAnimation WalkAnimation;
+    public AdvancedAnimation HoldAnimation;
     [HideInInspector]
     public bool Active = true;
     private Rigidbody rigidbody;
@@ -113,11 +114,13 @@ public class PlayerController : MonoBehaviour
         pickup.Pick();
         pickup.transform.parent = transform;
         pickup.transform.localPosition = new Vector3(0, 0, 1);
+        HoldAnimation.Activate(true);
     }
     public void Drop(Pickup pickup)
     {
         item = null;
         pickup.transform.parent = null;
         pickup.Drop();
+        HoldAnimation.Active = false;
     }
 }
