@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour
             SceneManager.LoadScene(Application.loadedLevel);
         }
         WaterObject.HeightMod = WaterValue;
+        int levelStage = Mathf.FloorToInt(3 * WaterValue / MaxWaterValue) + 1;
+        CrossfadeMusicPlayer.Instance.Play("Level" + levelStage, true);
     }
     public void SetPlayer(PirateController pirate)
     {

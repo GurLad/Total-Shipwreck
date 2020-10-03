@@ -53,10 +53,11 @@ public class CrossfadeMusicPlayer : MonoBehaviour
         {
             throw new System.Exception("No matching audio clip! (" + name + ")");
         }
-        if (mainAudioSource.clip == target.AudioClip)
+        if (Playing == name)
         {
             return;
         }
+        Debug.Log(target.Name);
         seconderyAudioSource.clip = target.AudioClip;
         Playing = name;
         mainAudioSource.volume = Volume;
