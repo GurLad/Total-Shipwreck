@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
     [Header("Items")]
     public float DistanceToCheck;
     public float SphereRadius;
+    public float CheckHeight;
+    [Header("Animations")]
+    public AdvancedAnimation IdleAnimation;
+    public AdvancedAnimation WalkAnimation;
     [HideInInspector]
     public bool Active = true;
     private Rigidbody rigidbody;
@@ -19,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        IdleAnimation.Activate();
     }
     protected virtual void Update()
     {
@@ -37,7 +42,7 @@ public class PlayerController : MonoBehaviour
                 {
                     Vector3 checkPos = transform.position + direction.normalized * DistanceToCheck;
                     checkPos.y = transform.position.y;
-                    Collider[] colliders = Physics.OverlapBox(checkPos, new Vector3(SphereRadius, transform.localScale.y / 2, SphereRadius));
+                    Collider[] colliders = Physics.OverlapBox(checkPos, new Vector3(SphereRadius, CheckHeight, SphereRadius));
                     List<Pickup> pickups = new List<Pickup>();
                     foreach (var item in colliders)
                     {
@@ -67,7 +72,17 @@ public class PlayerController : MonoBehaviour
             Vector3 force = -rigidbody.velocity * ResetForce;
             force.y = 0;
             rigidbody.AddForce(force);
+            if (!IdleAnimation.Active)
+            {
+                IdleAnimation.Activate(true);
+                WalkAnimation.Active = false;
+            }
             return Vector3.zero;
+        }
+        if (!WalkAnimation.Active)
+        {
+            WalkAnimation.Activate(true);
+            IdleAnimation.Active = false;
         }
         TargetVelocity.y = rigidbody.velocity.y;
         if ((rigidbody.velocity - TargetVelocity).magnitude <= 1 / Accuracy)
