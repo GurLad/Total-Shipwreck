@@ -784,7 +784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403470855298, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Text
-      value: 'Level 2 - Gold
+      value: 'Level 3 - Gold
 
 
         The responsible pirates managed to ruin the

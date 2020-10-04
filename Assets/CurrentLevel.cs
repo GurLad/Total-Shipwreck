@@ -10,6 +10,10 @@ public static class CurrentLevel
     public static void FinishLevel()
     {
         Value++;
+        if (Value > SavedData.Load<int>("LevelNum"))
+        {
+            SavedData.Save<int>("LevelNum", Value);
+        }
         if (Value < NumLevels)
         {
             SceneManager.LoadScene("NextLevel");

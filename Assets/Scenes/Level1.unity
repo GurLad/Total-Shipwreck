@@ -664,6 +664,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 758366305520596697, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e6a0aec35b1ac44caae91dbfec98654, type: 3}
+    - target: {fileID: 758366306684691511, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
+      propertyPath: m_Text
+      value: By the way, the blue indicator when recording is the start of the loop.
+        Make sure your pirate can reach it from where you end it!
+      objectReference: {fileID: 0}
     - target: {fileID: 1430418095502078747, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -727,7 +736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403470855298, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Text
-      value: 'Level 1 - Storm
+      value: 'Level 2 - Storm
 
         The ship is filled with holes again! And there
         are foreboding clouds on the horizons...'
