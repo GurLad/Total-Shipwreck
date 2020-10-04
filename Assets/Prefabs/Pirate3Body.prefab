@@ -925,7 +925,7 @@ GameObject:
   - component: {fileID: 213955244446846252}
   - component: {fileID: 6561461716908840200}
   m_Layer: 0
-  m_Name: EyeL
+  m_Name: EyeL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

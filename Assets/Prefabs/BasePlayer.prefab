@@ -85,8 +85,8 @@ MonoBehaviour:
   RecordAccuracy: 0.2
   RecordTooHighThresold: 2
   RecordTooHighUseThresold: 0.2
-  DistanceToCheck: 0.75
-  SphereRadius: 0.75
+  DistanceToCheck: 0.9
+  SphereRadius: 0.9
   CheckHeight: 1.5
   IdleAnimation: {fileID: 0}
   WalkAnimation: {fileID: 0}
@@ -96,7 +96,11 @@ MonoBehaviour:
   Stuck: {fileID: 8300000, guid: b1e6cfbd9033cce49a67e02488c8e95d, type: 3}
   NoPickup: {fileID: 8300000, guid: bdb285c3537c02145925df79445d65f0, type: 3}
   NoUse: {fileID: 8300000, guid: e9fee49194abd1c4d9cdf8f1f6c265e4, type: 3}
+  Sleep: {fileID: 21300000, guid: a75a5dab875750f4eb89f0ffe465bc4f, type: 3}
+  Controlled: {fileID: 21300000, guid: f703df20869b150479b39f7776b8f0f9, type: 3}
+  FollowingRecord: {fileID: 21300000, guid: a2de811550e15f64e8c750e8429b806d, type: 3}
   RecordParticle: {fileID: 1572095103242824168, guid: da7cded7e6b51ae479d1dc3c76a91119, type: 3}
+  StatusIcon: {fileID: 0}
   active: 0
 --- !u!114 &7705542230902656896
 MonoBehaviour:

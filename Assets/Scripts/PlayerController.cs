@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,8 +29,13 @@ public class PlayerController : MonoBehaviour
     public AudioClip Stuck;
     public AudioClip NoPickup;
     public AudioClip NoUse;
+    [Header("Status icons")]
+    public Sprite Sleep;
+    public Sprite Controlled;
+    public Sprite FollowingRecord;
     [Header("Misc")]
     public ParticleSystem RecordParticle;
+    public Image StatusIcon;
     [HideInInspector]
     public bool Active
     {
@@ -86,6 +92,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!followingRecord)
             {
+                StatusIcon.sprite = Controlled;
                 // Set record
                 if (Control.GetButtonDown(Control.CB.Record))
                 {
@@ -122,6 +129,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                StatusIcon.sprite = FollowingRecord;
                 Vector2 control = new Vector2(Control.GetAxis(Control.Axis.X), Control.GetAxis(Control.Axis.Y));
                 if (control != Vector2.zero && control != previousInput)
                 {
@@ -132,6 +140,7 @@ public class PlayerController : MonoBehaviour
         }
         if (followingRecord)
         {
+            StatusIcon.sprite = FollowingRecord;
             switch (recordedActions[currentStep].Type)
             {
                 case ActionType.Move:
@@ -200,6 +209,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (!Active)
         {
+            StatusIcon.sprite = Sleep;
             Move(Vector3.zero);
         }
         previousInput = new Vector2(Control.GetAxis(Control.Axis.X), Control.GetAxis(Control.Axis.Y));
