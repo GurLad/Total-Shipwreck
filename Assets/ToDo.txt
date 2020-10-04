@@ -1,8 +1,8 @@
 V-Follow record
- -Treasures
+V-Treasures
 V-Bucket pile
 V-Hide upper ship layers when inside
- -Rain
+V-Rain
 V-Holes
  -Intro scenes
  -Menu
