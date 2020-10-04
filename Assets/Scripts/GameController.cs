@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public float WaterRiseRate;
     public float MaxWaterValue;
     public float SecondsTillRain;
+    public int TreasureAmount;
     [Header("Objects")]
     public MoveWater WaterObject;
     public PPTScript RecordingShader;
@@ -22,6 +23,10 @@ public class GameController : MonoBehaviour
     public Text HoleCountIndicator;
     public Image RainIndicator;
     public Text RainCountIndicator;
+    public Image TreasureIndicator;
+    public Text TreasureCountIndicator;
+    [HideInInspector]
+    public int DeadTreasures;
     [HideInInspector]
     public float WaterValue;
     public float WaterHeight
@@ -48,6 +53,7 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
+        // Holes
         if (holes.Count == 0)
         {
             SceneManager.LoadScene("Win");
@@ -57,6 +63,7 @@ public class GameController : MonoBehaviour
             HoleIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * holes.Count / numHoles, WaterIndicator.rectTransform.sizeDelta.y);
             HoleCountIndicator.text = holes.Count.ToString();
         }
+        // Rain
         if (!raining)
         {
             rainingCount += Time.deltaTime;
@@ -69,6 +76,10 @@ public class GameController : MonoBehaviour
             RainIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * rainingCount / SecondsTillRain, WaterIndicator.rectTransform.sizeDelta.y);
             RainCountIndicator.text = Mathf.RoundToInt(SecondsTillRain - rainingCount).ToString();
         }
+        // Treasure
+        TreasureIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * (1 - (float)DeadTreasures / TreasureAmount), WaterIndicator.rectTransform.sizeDelta.y);
+        TreasureCountIndicator.text = (TreasureAmount - DeadTreasures).ToString();
+        // Water
         WaterValue += Time.deltaTime * GetTrueRiseRate();
         WaterIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * WaterValue / MaxWaterValue, WaterIndicator.rectTransform.sizeDelta.y);
         if (WaterValue >= MaxWaterValue)
@@ -96,6 +107,11 @@ public class GameController : MonoBehaviour
     private float GetTrueRiseRate()
     {
         // Reducing water rise rate with the holes makes sense, but also renders throwing treause away pointless. Will need to find a solution.
-        return WaterRiseRate * ((float)holes.Count / numHoles) + (raining ? WaterRiseRate * 2 : 0);
+        return WaterRiseRate * GetTreasureMod() * ((float)holes.Count / numHoles) + (raining ? WaterRiseRate * 2 * GetTreasureMod() : 0);
+    }
+    private float GetTreasureMod()
+    {
+        Debug.Log((1 - DeadTreasures / (float)TreasureAmount) / 2 + 0.5f);
+        return (1 - DeadTreasures / (float)TreasureAmount) / 2 + 0.5f;
     }
 }
