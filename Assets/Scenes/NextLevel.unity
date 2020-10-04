@@ -2450,8 +2450,10 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1.2
-  m_Text: You won!
+    m_LineSpacing: 1
+  m_Text: 'You saved the ship!
+
+    ...for now'
 --- !u!4 &6090841752538205828
 Transform:
   m_ObjectHideFlags: 0
@@ -7796,7 +7798,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Next
+  m_Text: Next level
 --- !u!224 &6090841753465701659
 RectTransform:
   m_ObjectHideFlags: 0

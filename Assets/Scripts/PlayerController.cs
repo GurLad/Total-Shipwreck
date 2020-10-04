@@ -163,9 +163,6 @@ public class PlayerController : MonoBehaviour
                     pos.y = transform.position.y;
                     if (Vector3.Distance(pos, transform.position) <= RecordTooHighThresold + 1 && y - transform.position.y >= RecordTooHighThresold)
                     {
-                        //SoundController.PlaySound(TooHigh, Pitch);
-                        //followingRecord = false;
-                        //recordedActions.Clear();
                     }
                     transform.LookAt(pos);
                     Vector3 dir = transform.forward;
@@ -190,6 +187,13 @@ public class PlayerController : MonoBehaviour
                 case ActionType.Use:
                     if (Mathf.Abs(transform.position.y - recordedActions[currentStep].pos.y) >= RecordTooHighUseThresold)
                     {
+                        stuckTime += Time.deltaTime;
+                        if (stuckTime >= 1)
+                        {
+                            SoundController.PlaySound(NoUse, Pitch);
+                            currentStep++;
+                            break;
+                        }
                         Vector3 pos1 = recordedActions[currentStep].pos;
                         pos1.y = transform.position.y;
                         transform.LookAt(pos1);
@@ -311,7 +315,7 @@ public class PlayerController : MonoBehaviour
         item = pickup;
         pickup.transform.parent = transform;
         pickup.transform.localPosition = new Vector3(0, 0, 1);
-        //pickup.transform.localEulerAngles = new Vector3(-90, 0, 0);
+        pickup.transform.localEulerAngles = new Vector3(-90, 0, 0);
         HoldAnimation.Activate(true);
     }
     public void Drop(Pickup pickup)

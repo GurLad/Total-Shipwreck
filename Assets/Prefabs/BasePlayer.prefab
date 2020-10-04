@@ -81,7 +81,7 @@ MonoBehaviour:
   Force: 5
   ResetForce: 5
   Accuracy: 1.85
-  RecordRate: 1
+  RecordRate: 0.8
   RecordAccuracy: 0.25
   RecordTooHighThresold: 2
   RecordTooHighUseThresold: 0.2

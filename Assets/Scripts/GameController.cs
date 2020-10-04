@@ -118,7 +118,7 @@ public class GameController : MonoBehaviour
     private float GetTrueRiseRate()
     {
         // Reducing water rise rate with the holes makes sense, but also renders throwing treause away pointless. Will need to find a solution.
-        return WaterRiseRate * GetTreasureMod() * (0.5f * holes.Count / numHoles + 0.5f) + (raining ? WaterRiseRate * (difficult ? 2 : 1) * GetTreasureMod() : 0);
+        return WaterRiseRate * GetTreasureMod() * (0.5f * holes.Count / numHoles + 0.5f) + (raining ? WaterRiseRate * 1 * GetTreasureMod() : 0);
     }
     private float GetTreasureMod()
     {
