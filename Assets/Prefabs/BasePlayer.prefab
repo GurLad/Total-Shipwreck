@@ -84,6 +84,7 @@ MonoBehaviour:
   RecordRate: 1
   RecordAccuracy: 0.2
   RecordTooHighThresold: 2
+  RecordTooHighUseThresold: 0.2
   DistanceToCheck: 0.75
   SphereRadius: 0.75
   CheckHeight: 1.5

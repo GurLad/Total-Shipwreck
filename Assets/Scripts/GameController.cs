@@ -10,14 +10,18 @@ public class GameController : MonoBehaviour
     [Header("Stats")]
     public float WaterRiseRate;
     public float MaxWaterValue;
+    public float SecondsTillRain;
     [Header("Objects")]
     public MoveWater WaterObject;
     public PPTScript RecordingShader;
     public FollowObject Camera;
+    public List<GameObject> RainIndicators;
     [Header("UI")]
     public Image WaterIndicator;
     public Image HoleIndicator;
     public Text HoleCountIndicator;
+    public Image RainIndicator;
+    public Text RainCountIndicator;
     [HideInInspector]
     public float WaterValue;
     public float WaterHeight
@@ -30,6 +34,8 @@ public class GameController : MonoBehaviour
     private float maxWaterIndicatorSize;
     private List<Hole> holes;
     private int numHoles;
+    private bool raining;
+    private float rainingCount;
     private void Awake()
     {
         Current = this;
@@ -50,6 +56,18 @@ public class GameController : MonoBehaviour
         {
             HoleIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * holes.Count / numHoles, WaterIndicator.rectTransform.sizeDelta.y);
             HoleCountIndicator.text = holes.Count.ToString();
+        }
+        if (!raining)
+        {
+            rainingCount += Time.deltaTime;
+            if (rainingCount >= SecondsTillRain)
+            {
+                raining = true;
+                RainIndicators.ForEach(a => a.SetActive(true));
+                rainingCount = SecondsTillRain;
+            }
+            RainIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * rainingCount / SecondsTillRain, WaterIndicator.rectTransform.sizeDelta.y);
+            RainCountIndicator.text = Mathf.RoundToInt(SecondsTillRain - rainingCount).ToString();
         }
         WaterValue += Time.deltaTime * GetTrueRiseRate();
         WaterIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * WaterValue / MaxWaterValue, WaterIndicator.rectTransform.sizeDelta.y);
@@ -78,6 +96,6 @@ public class GameController : MonoBehaviour
     private float GetTrueRiseRate()
     {
         // Reducing water rise rate with the holes makes sense, but also renders throwing treause away pointless. Will need to find a solution.
-        return WaterRiseRate * ((float)holes.Count / numHoles);
+        return WaterRiseRate * ((float)holes.Count / numHoles) + (raining ? WaterRiseRate * 2 : 0);
     }
 }

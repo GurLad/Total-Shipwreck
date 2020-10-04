@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float RecordRate;
     public float RecordAccuracy;
     public float RecordTooHighThresold;
+    public float RecordTooHighUseThresold;
     [Header("Items")]
     public float DistanceToCheck;
     public float SphereRadius;
@@ -178,6 +179,14 @@ public class PlayerController : MonoBehaviour
                     currentStep %= recordedActions.Count;
                     break;
                 case ActionType.Use:
+                    if (Mathf.Abs(transform.position.y - recordedActions[currentStep].pos.y) >= RecordTooHighUseThresold)
+                    {
+                        Vector3 pos1 = recordedActions[currentStep].pos;
+                        pos1.y = transform.position.y;
+                        transform.LookAt(pos1);
+                        Move(transform.forward);
+                        break;
+                    }
                     if (!UseAction())
                     {
                         SoundController.PlaySound(NoUse, Pitch);
@@ -244,7 +253,7 @@ public class PlayerController : MonoBehaviour
             if (recording)
             {
                 RecordMove();
-                RecordUse();
+                RecordUse(transform.position);
             }
             new List<Trigger>(item.GetComponents<Trigger>()).ForEach(a => a.Activate());
             return true;
@@ -332,9 +341,9 @@ public class PlayerController : MonoBehaviour
         recordedActions.Add(new Action(ActionType.Pick, direction));
         Record(Color.green);
     }
-    private void RecordUse()
+    private void RecordUse(Vector3 pos)
     {
-        recordedActions.Add(new Action(ActionType.Use));
+        recordedActions.Add(new Action(ActionType.Use, pos));
         Record(Color.yellow);
     }
     private void Record(Color color)
