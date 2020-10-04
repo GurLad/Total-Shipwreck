@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour
     public FollowObject Camera;
     [Header("UI")]
     public Image WaterIndicator;
+    public Image HoleIndicator;
+    public Text HoleCountIndicator;
     [HideInInspector]
     public float WaterValue;
     public float WaterHeight
@@ -43,6 +45,11 @@ public class GameController : MonoBehaviour
         if (holes.Count == 0)
         {
             SceneManager.LoadScene("Win");
+        }
+        else
+        {
+            HoleIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * holes.Count / numHoles, WaterIndicator.rectTransform.sizeDelta.y);
+            HoleCountIndicator.text = holes.Count.ToString();
         }
         WaterValue += Time.deltaTime * GetTrueRiseRate();
         WaterIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * WaterValue / MaxWaterValue, WaterIndicator.rectTransform.sizeDelta.y);
