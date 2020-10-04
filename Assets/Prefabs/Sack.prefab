@@ -144,6 +144,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathPlace: -7
-  TriggerWords: []
+  TriggerWords:
+  - {fileID: 8300000, guid: 66d073b9edda5184487970b22c8de449, type: 3}
+  - {fileID: 8300000, guid: 010bd1b41a6f9244b8fbbfe59f339eca, type: 3}
   DeathWords:
-  - {fileID: 8300000, guid: a3c00587a19cc264a9ecd13b04155e9b, type: 3}
+  - {fileID: 8300000, guid: 8026763cc5a9e314187842b7ac1a789c, type: 3}
+  - {fileID: 8300000, guid: 541c3dcaa3816e740afcf73cbec39586, type: 3}
+  - {fileID: 8300000, guid: 63fa858f77a542d43a59e69523d7f2c6, type: 3}

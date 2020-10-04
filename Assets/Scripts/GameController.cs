@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
         maxWaterIndicatorSize = WaterIndicator.rectTransform.sizeDelta.x;
         holes = new List<Hole>(FindObjectsOfType<Hole>());
         numHoles = holes.Count;
+        Time.timeScale = 1;
     }
     private void Update()
     {
