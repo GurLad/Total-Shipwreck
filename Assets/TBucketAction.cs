@@ -9,7 +9,7 @@ public class TBucketAction : Trigger
     private bool full;
     public override void Activate()
     {
-        if (!full && transform.position.y <= GameController.Current.WaterValue)
+        if (!full && transform.position.y <= GameController.Current.WaterHeight)
         {
             full = true;
             GameController.Current.WaterValue -= Amount;

@@ -1,0 +1,13 @@
+ -Follow record
+ -Treasures
+ -Bucket pile
+V-Hide upper ship layers when inside
+ -Rain
+ -Holes
+ -Intro scenes
+ -Menu
+ -UI
+------
+ -Shout sutff?
+ -More models?
+ -Escort mission?

@@ -18,6 +18,13 @@ public class GameController : MonoBehaviour
     public Image WaterIndicator;
     [HideInInspector]
     public float WaterValue;
+    public float WaterHeight
+    {
+        get
+        {
+            return WaterObject.HeightMod + WaterValue;
+        }
+    }
     private float maxWaterIndicatorSize;
     private void Awake()
     {
@@ -35,7 +42,7 @@ public class GameController : MonoBehaviour
         {
             SceneManager.LoadScene(Application.loadedLevel);
         }
-        WaterObject.HeightMod = WaterValue;
+        WaterObject.WaterHeight = WaterValue;
         int levelStage = Mathf.FloorToInt(3 * WaterValue / MaxWaterValue) + 1;
         CrossfadeMusicPlayer.Instance.Play("Level" + levelStage, true);
     }
