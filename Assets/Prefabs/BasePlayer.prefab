@@ -82,6 +82,7 @@ MonoBehaviour:
   ResetForce: 5
   Accuracy: 1
   RecordRate: 1
+  RecordAccuracy: 0.1
   DistanceToCheck: 0.75
   SphereRadius: 0.75
   CheckHeight: 1.5

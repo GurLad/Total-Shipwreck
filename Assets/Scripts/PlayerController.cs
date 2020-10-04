@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float ResetForce;
     public float Accuracy;
     public float RecordRate;
+    public float RecordAccuracy;
     [Header("Items")]
     public float DistanceToCheck;
     public float SphereRadius;
@@ -50,14 +51,20 @@ public class PlayerController : MonoBehaviour
     private bool active;
     private Rigidbody rigidbody;
     private Pickup item;
+    // Recording stuff
     private bool recording;
     private List<Action> recordedActions;
     private float count;
+    private List<GameObject> recordIndicators;
+    // Following record stuff
+    private bool followingRecord;
+    private int currentStep;
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         IdleAnimation.Activate();
         recordedActions = new List<Action>();
+        recordIndicators = new List<GameObject>();
         if (active)
         {
             Current = this;
@@ -67,72 +74,85 @@ public class PlayerController : MonoBehaviour
     {
         if (Active)
         {
-            // Set record
-            if (Control.GetButtonDown(Control.CB.Record))
+            if (!followingRecord)
             {
-                SetRecording(!recording);
-            }
-            // Record move
-            if (recording)
-            {
-                count += Time.deltaTime * RecordRate;
-                if (count >= 1)
+                // Set record
+                if (Control.GetButtonDown(Control.CB.Record))
                 {
-                    count -= 1;
-                    RecordMove();
+                    SetRecording(!recording);
                 }
-            }
-            // Move
-            Vector3 direction = Move();
-            if (direction.magnitude > 0.01f)
-            {
-                transform.LookAt(transform.position + direction);
-            }
-            // Use items
-            if (Control.GetButtonDown(Control.CB.Use) && item != null)
-            {
+                // Record move
                 if (recording)
                 {
-                    RecordUse();
+                    count += Time.deltaTime * RecordRate;
+                    if (count >= 1)
+                    {
+                        count -= 1;
+                        RecordMove(true);
+                    }
                 }
-                new List<Trigger>(item.GetComponents<Trigger>()).ForEach(a => a.Activate());
+                // Move
+                Vector3 direction = new Vector3(Control.GetAxis(Control.Axis.X), 0, Control.GetAxis(Control.Axis.Y)).normalized;
+                direction = (direction + Move(direction)).normalized;
+                if (direction.magnitude > 0.01f)
+                {
+                    transform.LookAt(transform.position + direction);
+                }
+                // Use items
+                if (Control.GetButtonDown(Control.CB.Use) && item != null)
+                {
+                    UseAction();
+                }
+                // Items
+                if (Control.GetButtonDown(Control.CB.Pickup))
+                {
+                    PickupAction(direction);
+                }
             }
-            // Items
-            if (Control.GetButtonDown(Control.CB.Pickup))
+            else
             {
-                if (item == null)
+                if (Control.GetAxis(Control.Axis.X) != 0 || Control.GetAxis(Control.Axis.Y) != 0)
                 {
-                    Vector3 checkPos = transform.position + direction.normalized * DistanceToCheck;
-                    checkPos.y = transform.position.y;
-                    Collider[] colliders = Physics.OverlapBox(checkPos, new Vector3(SphereRadius, CheckHeight, SphereRadius));
-                    List<Pickup> pickups = new List<Pickup>();
-                    foreach (var item in colliders)
-                    {
-                        pickups.AddRange(item.GetComponents<Pickup>());
-                    }
-                    if (pickups.Count > 0)
-                    {
-                        if (recording)
-                        {
-                            RecordPick();
-                        }
-                        Pickup(pickups[0]);
-                    }
-                }
-                else
-                {
-                    if (recording)
-                    {
-                        RecordPick();
-                    }
-                    Drop(item);
+                    followingRecord = false;
+                    recordedActions.Clear();
                 }
             }
-            // Record
-
+        }
+        if (followingRecord)
+        {
+            switch (recordedActions[currentStep].Type)
+            {
+                case ActionType.Move:
+                    Vector3 pos = recordedActions[currentStep].pos;
+                    pos.y = transform.position.y;
+                    transform.LookAt(pos);
+                    Vector3 dir = transform.forward;
+                    if (Vector3.Distance(transform.position, pos) <= RecordAccuracy)
+                    {
+                        currentStep++;
+                        currentStep %= recordedActions.Count;
+                    }
+                    else
+                    {
+                        Move(dir);
+                    }
+                    break;
+                case ActionType.Pick:
+                    PickupAction(transform.forward);
+                    currentStep++;
+                    currentStep %= recordedActions.Count;
+                    break;
+                case ActionType.Use:
+                    UseAction();
+                    currentStep++;
+                    currentStep %= recordedActions.Count;
+                    break;
+                default:
+                    break;
+            }
         }
     }
-    private Vector3 Move()
+    private Vector3 Move(Vector3 target)
     {
         float tempY = rigidbody.velocity.y;
         rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
@@ -141,7 +161,7 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = rigidbody.velocity.normalized * Speed;
         }
         rigidbody.velocity = new Vector3(rigidbody.velocity.x, tempY, rigidbody.velocity.z);
-        Vector3 TargetVelocity = new Vector3(Control.GetAxis(Control.Axis.X), 0, Control.GetAxis(Control.Axis.Y)).normalized * Speed;
+        Vector3 TargetVelocity = target.normalized * Speed;
         if (TargetVelocity == Vector3.zero)
         {
             Vector3 force = -rigidbody.velocity * ResetForce;
@@ -172,7 +192,48 @@ public class PlayerController : MonoBehaviour
         }
         Vector3 temp = rigidbody.velocity;
         temp.y = 0;
-        return temp;
+        return temp.normalized;
+    }
+    private void UseAction()
+    {
+        if (recording)
+        {
+            RecordMove();
+            RecordUse();
+        }
+        new List<Trigger>(item.GetComponents<Trigger>()).ForEach(a => a.Activate());
+    }
+    private void PickupAction(Vector3 direction)
+    {
+        if (item == null)
+        {
+            Vector3 checkPos = transform.position + direction.normalized * DistanceToCheck;
+            checkPos.y = transform.position.y;
+            Collider[] colliders = Physics.OverlapBox(checkPos, new Vector3(SphereRadius, CheckHeight, SphereRadius));
+            List<Pickup> pickups = new List<Pickup>();
+            foreach (var item in colliders)
+            {
+                pickups.AddRange(item.GetComponents<Pickup>());
+            }
+            if (pickups.Count > 0)
+            {
+                if (recording)
+                {
+                    RecordMove();
+                    RecordPick();
+                }
+                Pickup(pickups[0]);
+            }
+        }
+        else
+        {
+            if (recording)
+            {
+                RecordMove();
+                RecordPick();
+            }
+            Drop(item);
+        }
     }
     public void Pickup(Pickup pickup)
     {
@@ -196,13 +257,25 @@ public class PlayerController : MonoBehaviour
         if (recording)
         {
             recordedActions.Clear();
-            count = 1;
+            count = 0;
+            RecordMove(false);
+            Record(Color.blue);
+        }
+        else
+        {
+            recordIndicators.ForEach(a => Destroy(a));
+            recordIndicators.Clear();
+            currentStep = 0;
+            followingRecord = true;
         }
     }
-    private void RecordMove()
+    private void RecordMove(bool showIndicator = false)
     {
         recordedActions.Add(new Action(ActionType.Move, transform.position));
-        Record(Color.white);
+        if (showIndicator)
+        {
+            Record(Color.white);
+        }
     }
     private void RecordPick()
     {
@@ -216,7 +289,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Record(Color color)
     {
-        ParticleSystem.MainModule particleSystem = Instantiate(RecordParticle, transform.position, Quaternion.identity).main;
-        particleSystem.startColor = color;
+        ParticleSystem particleSystem = Instantiate(RecordParticle, transform.position, Quaternion.identity);
+        ParticleSystem.MainModule main = particleSystem.main;
+        main.startColor = color;
+        recordIndicators.Add(particleSystem.gameObject);
+    }
+    private bool DifferentDirection(float a, float b)
+    {
+        return Mathf.Abs(a) <= 0.01f || Mathf.Abs(b) <= 0.01f || Mathf.Sign(a) != Mathf.Sign(b);
     }
 }
