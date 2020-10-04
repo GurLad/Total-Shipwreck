@@ -19862,7 +19862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 6121083403463216644}
   Axis: 4
-  Value: -5
+  Value: -3.5
   Reverse: 1
   AltMaterial: {fileID: 2100000, guid: 493a88dfe2fbde645998d9b6f70a3960, type: 2}
 --- !u!1 &6723741661017898400

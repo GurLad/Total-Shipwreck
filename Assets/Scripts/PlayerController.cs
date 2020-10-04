@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     public AudioClip Stuck;
     public AudioClip NoPickup;
     public AudioClip NoUse;
+    public AudioClip PickAudio;
+    public AudioClip DropAudio;
     [Header("Status icons")]
     public Sprite Sleep;
     public Sprite Controlled;
@@ -317,6 +319,7 @@ public class PlayerController : MonoBehaviour
         pickup.transform.localPosition = new Vector3(0, 0, 1);
         pickup.transform.localEulerAngles = new Vector3(-90, 0, 0);
         HoldAnimation.Activate(true);
+        SoundController.PlaySound(PickAudio, Pitch);
     }
     public void Drop(Pickup pickup)
     {
@@ -324,6 +327,7 @@ public class PlayerController : MonoBehaviour
         pickup.transform.parent = null;
         pickup.Drop();
         HoldAnimation.Active = false;
+        SoundController.PlaySound(DropAudio, Pitch);
     }
     private void SetRecording(bool value)
     {

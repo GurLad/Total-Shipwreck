@@ -797,7 +797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403908113361, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: SecondsTillRain
-      value: 45
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403971488508, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_IsActive

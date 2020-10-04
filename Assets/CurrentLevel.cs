@@ -29,6 +29,7 @@ public static class CurrentLevel
     }
     public static void LoadLevel(int value)
     {
+        Value = value;
         SceneManager.LoadScene("Level" + value);
     }
 }

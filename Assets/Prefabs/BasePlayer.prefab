@@ -96,6 +96,8 @@ MonoBehaviour:
   Stuck: {fileID: 8300000, guid: b1e6cfbd9033cce49a67e02488c8e95d, type: 3}
   NoPickup: {fileID: 8300000, guid: bdb285c3537c02145925df79445d65f0, type: 3}
   NoUse: {fileID: 8300000, guid: e9fee49194abd1c4d9cdf8f1f6c265e4, type: 3}
+  PickAudio: {fileID: 8300000, guid: 9058766f8804f84429d5279d191e20b8, type: 3}
+  DropAudio: {fileID: 8300000, guid: 40ece9209e3d6d4489b99cf2620a54b4, type: 3}
   Sleep: {fileID: 21300000, guid: a75a5dab875750f4eb89f0ffe465bc4f, type: 3}
   Controlled: {fileID: 21300000, guid: f703df20869b150479b39f7776b8f0f9, type: 3}
   FollowingRecord: {fileID: 21300000, guid: a2de811550e15f64e8c750e8429b806d, type: 3}
