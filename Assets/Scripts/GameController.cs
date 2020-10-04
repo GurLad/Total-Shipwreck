@@ -26,6 +26,8 @@ public class GameController : MonoBehaviour
         }
     }
     private float maxWaterIndicatorSize;
+    private List<Hole> holes;
+    private int numHoles;
     private void Awake()
     {
         Current = this;
@@ -33,10 +35,16 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         maxWaterIndicatorSize = WaterIndicator.rectTransform.sizeDelta.x;
+        holes = new List<Hole>(FindObjectsOfType<Hole>());
+        numHoles = holes.Count;
     }
     private void Update()
     {
-        WaterValue += Time.deltaTime * WaterRiseRate;
+        if (holes.Count == 0)
+        {
+            SceneManager.LoadScene("Win");
+        }
+        WaterValue += Time.deltaTime * GetTrueRiseRate();
         WaterIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * WaterValue / MaxWaterValue, WaterIndicator.rectTransform.sizeDelta.y);
         if (WaterValue >= MaxWaterValue)
         {
@@ -54,5 +62,15 @@ public class GameController : MonoBehaviour
     public void SetRecording(bool mode)
     {
         RecordingShader.enabled = mode;
+    }
+    public void RemoveHole(Hole hole)
+    {
+        holes.Remove(hole);
+        Destroy(hole.gameObject);
+    }
+    private float GetTrueRiseRate()
+    {
+        // Reducing water rise rate with the holes makes sense, but also renders throwing treause away pointless. Will need to find a solution.
+        return WaterRiseRate * ((float)holes.Count / numHoles);
     }
 }
