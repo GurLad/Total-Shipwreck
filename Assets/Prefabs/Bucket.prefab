@@ -213,6 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850d51f6e88229e4bb0897f036ab8f6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Holder: {fileID: 0}
 --- !u!114 &5907340266461220778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d9180d0ee7818f44b06325e4d2c58ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 0.5
+  Amount: 1.5
   WaterObject: {fileID: 3160960914671279999}
 --- !u!1 &6927054448213163526
 GameObject:

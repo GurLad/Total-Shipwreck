@@ -47,6 +47,10 @@ public class GameController : MonoBehaviour
     }
     private void Start()
     {
+        if (SavedData.Load<int>("Difficult") != 1)
+        {
+            WaterRiseRate *= 0.8f;
+        }
         maxWaterIndicatorSize = WaterIndicator.rectTransform.sizeDelta.x;
         holes = new List<Hole>(FindObjectsOfType<Hole>());
         numHoles = holes.Count;
@@ -54,10 +58,14 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
+        if (WaterValue < 0)
+        {
+            WaterValue = 0;
+        }
         // Holes
         if (holes.Count == 0)
         {
-            SceneManager.LoadScene("Win");
+            CurrentLevel.FinishLevel();
         }
         else
         {
@@ -85,7 +93,7 @@ public class GameController : MonoBehaviour
         WaterIndicator.rectTransform.sizeDelta = new Vector2(maxWaterIndicatorSize * WaterValue / MaxWaterValue, WaterIndicator.rectTransform.sizeDelta.y);
         if (WaterValue >= MaxWaterValue)
         {
-            SceneManager.LoadScene(Application.loadedLevel);
+            SceneManager.LoadScene("Lose");
         }
         WaterObject.WaterHeight = WaterValue;
         int levelStage = Mathf.FloorToInt(3 * WaterValue / MaxWaterValue) + 1;
@@ -108,11 +116,10 @@ public class GameController : MonoBehaviour
     private float GetTrueRiseRate()
     {
         // Reducing water rise rate with the holes makes sense, but also renders throwing treause away pointless. Will need to find a solution.
-        return WaterRiseRate * GetTreasureMod() * ((float)holes.Count / numHoles) + (raining ? WaterRiseRate * 2 * GetTreasureMod() : 0);
+        return WaterRiseRate * GetTreasureMod() * (0.5f * holes.Count / numHoles + 0.5f) + (raining ? WaterRiseRate * 2 * GetTreasureMod() : 0);
     }
     private float GetTreasureMod()
     {
-        Debug.Log((1 - DeadTreasures / (float)TreasureAmount) / 2 + 0.5f);
         return (1 - DeadTreasures / (float)TreasureAmount) / 2 + 0.5f;
     }
 }

@@ -77,17 +77,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a068cfd02422f44950bc16d7014a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 5
+  Speed: 6.25
   Force: 5
   ResetForce: 5
-  Accuracy: 1
+  Accuracy: 1.25
   RecordRate: 1
   RecordAccuracy: 0.2
   RecordTooHighThresold: 2
   RecordTooHighUseThresold: 0.2
   DistanceToCheck: 0.9
   SphereRadius: 0.9
-  CheckHeight: 1.5
+  CheckHeight: 1.6
   IdleAnimation: {fileID: 0}
   WalkAnimation: {fileID: 0}
   HoldAnimation: {fileID: 1268019211265934910}
