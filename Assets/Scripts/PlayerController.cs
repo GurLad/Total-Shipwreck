@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [Header("Voice lines")]
     public float Pitch;
     public AudioClip TooHigh;
+    public AudioClip Stuck;
+    public AudioClip NoPickup;
+    public AudioClip NoUse;
     [Header("Misc")]
     public ParticleSystem RecordParticle;
     [HideInInspector]
@@ -63,6 +66,8 @@ public class PlayerController : MonoBehaviour
     // Following record stuff
     private bool followingRecord;
     private int currentStep;
+    private Vector2 previousInput;
+    private float stuckTime;
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -97,7 +102,8 @@ public class PlayerController : MonoBehaviour
                 }
                 // Move
                 Vector3 direction = new Vector3(Control.GetAxis(Control.Axis.X), 0, Control.GetAxis(Control.Axis.Y)).normalized;
-                direction = (direction + Move(direction)).normalized;
+                Move(direction);
+                //direction = (direction + Move(direction)).normalized;
                 if (direction.magnitude > 0.01f)
                 {
                     transform.LookAt(transform.position + direction);
@@ -115,7 +121,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (Control.GetAxis(Control.Axis.X) != 0 || Control.GetAxis(Control.Axis.Y) != 0)
+                Vector2 control = new Vector2(Control.GetAxis(Control.Axis.X), Control.GetAxis(Control.Axis.Y));
+                if (control != Vector2.zero && control != previousInput)
                 {
                     followingRecord = false;
                     recordedActions.Clear();
@@ -127,6 +134,20 @@ public class PlayerController : MonoBehaviour
             switch (recordedActions[currentStep].Type)
             {
                 case ActionType.Move:
+                    if (rigidbody.velocity.magnitude <= 0.2f)
+                    {
+                        stuckTime += Time.deltaTime;
+                        if (stuckTime >= 0.5f)
+                        {
+                            SoundController.PlaySound(Stuck, Pitch);
+                            followingRecord = false;
+                            recordedActions.Clear();
+                        }
+                    }
+                    else
+                    {
+                        stuckTime = 0;
+                    }
                     Vector3 pos = recordedActions[currentStep].pos;
                     float y = pos.y;
                     pos.y = transform.position.y;
@@ -149,12 +170,18 @@ public class PlayerController : MonoBehaviour
                     }
                     break;
                 case ActionType.Pick:
-                    PickupAction(transform.forward);
+                    if (!PickupAction(recordedActions[currentStep].pos))
+                    {
+                        SoundController.PlaySound(NoPickup, Pitch);
+                    }
                     currentStep++;
                     currentStep %= recordedActions.Count;
                     break;
                 case ActionType.Use:
-                    UseAction();
+                    if (!UseAction())
+                    {
+                        SoundController.PlaySound(NoUse, Pitch);
+                    }
                     currentStep++;
                     currentStep %= recordedActions.Count;
                     break;
@@ -166,6 +193,7 @@ public class PlayerController : MonoBehaviour
         {
             Move(Vector3.zero);
         }
+        previousInput = new Vector2(Control.GetAxis(Control.Axis.X), Control.GetAxis(Control.Axis.Y));
     }
     private Vector3 Move(Vector3 target)
     {
@@ -209,7 +237,7 @@ public class PlayerController : MonoBehaviour
         temp.y = 0;
         return temp.normalized;
     }
-    private void UseAction()
+    private bool UseAction()
     {
         if (item != null)
         {
@@ -219,9 +247,11 @@ public class PlayerController : MonoBehaviour
                 RecordUse();
             }
             new List<Trigger>(item.GetComponents<Trigger>()).ForEach(a => a.Activate());
+            return true;
         }
+        return false;
     }
-    private void PickupAction(Vector3 direction)
+    private bool PickupAction(Vector3 direction)
     {
         if (item == null)
         {
@@ -238,9 +268,10 @@ public class PlayerController : MonoBehaviour
                 if (recording)
                 {
                     RecordMove();
-                    RecordPick();
+                    RecordPick(direction);
                 }
                 pickups[0].Pick(this);
+                return true;
             }
         }
         else
@@ -248,10 +279,12 @@ public class PlayerController : MonoBehaviour
             if (recording)
             {
                 RecordMove();
-                RecordPick();
+                RecordPick(direction);
             }
             Drop(item);
+            return true;
         }
+        return false;
     }
     public void Pickup(Pickup pickup)
     {
@@ -294,9 +327,9 @@ public class PlayerController : MonoBehaviour
             Record(Color.white);
         }
     }
-    private void RecordPick()
+    private void RecordPick(Vector3 direction)
     {
-        recordedActions.Add(new Action(ActionType.Pick));
+        recordedActions.Add(new Action(ActionType.Pick, direction));
         Record(Color.green);
     }
     private void RecordUse()

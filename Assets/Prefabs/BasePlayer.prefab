@@ -92,6 +92,9 @@ MonoBehaviour:
   HoldAnimation: {fileID: 1268019211265934910}
   Pitch: 1
   TooHigh: {fileID: 8300000, guid: a3c00587a19cc264a9ecd13b04155e9b, type: 3}
+  Stuck: {fileID: 8300000, guid: b1e6cfbd9033cce49a67e02488c8e95d, type: 3}
+  NoPickup: {fileID: 8300000, guid: bdb285c3537c02145925df79445d65f0, type: 3}
+  NoUse: {fileID: 8300000, guid: e9fee49194abd1c4d9cdf8f1f6c265e4, type: 3}
   RecordParticle: {fileID: 1572095103242824168, guid: da7cded7e6b51ae479d1dc3c76a91119, type: 3}
   active: 0
 --- !u!114 &7705542230902656896
