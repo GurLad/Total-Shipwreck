@@ -1,6 +1,6 @@
- -Follow record
+V-Follow record
  -Treasures
- -Bucket pile
+V-Bucket pile
 V-Hide upper ship layers when inside
  -Rain
  -Holes
@@ -11,3 +11,4 @@ V-Hide upper ship layers when inside
  -Shout sutff?
  -More models?
  -Escort mission?
+ -Better follow AI?

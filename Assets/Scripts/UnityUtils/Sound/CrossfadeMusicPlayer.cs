@@ -57,7 +57,6 @@ public class CrossfadeMusicPlayer : MonoBehaviour
         {
             return;
         }
-        Debug.Log(target.Name);
         seconderyAudioSource.clip = target.AudioClip;
         Playing = name;
         mainAudioSource.volume = Volume;

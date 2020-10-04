@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public float Accuracy;
     public float RecordRate;
     public float RecordAccuracy;
+    public float RecordTooHighThresold;
     [Header("Items")]
     public float DistanceToCheck;
     public float SphereRadius;
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour
     public AdvancedAnimation IdleAnimation;
     public AdvancedAnimation WalkAnimation;
     public AdvancedAnimation HoldAnimation;
+    [Header("Voice lines")]
+    public float Pitch;
+    public AudioClip TooHigh;
     [Header("Misc")]
     public ParticleSystem RecordParticle;
     [HideInInspector]
@@ -99,7 +103,7 @@ public class PlayerController : MonoBehaviour
                     transform.LookAt(transform.position + direction);
                 }
                 // Use items
-                if (Control.GetButtonDown(Control.CB.Use) && item != null)
+                if (Control.GetButtonDown(Control.CB.Use))
                 {
                     UseAction();
                 }
@@ -124,7 +128,14 @@ public class PlayerController : MonoBehaviour
             {
                 case ActionType.Move:
                     Vector3 pos = recordedActions[currentStep].pos;
+                    float y = pos.y;
                     pos.y = transform.position.y;
+                    if (Vector3.Distance(pos, transform.position) <= RecordTooHighThresold + 1 && y - transform.position.y >= RecordTooHighThresold)
+                    {
+                        SoundController.PlaySound(TooHigh, Pitch);
+                        followingRecord = false;
+                        recordedActions.Clear();
+                    }
                     transform.LookAt(pos);
                     Vector3 dir = transform.forward;
                     if (Vector3.Distance(transform.position, pos) <= RecordAccuracy)
@@ -150,6 +161,10 @@ public class PlayerController : MonoBehaviour
                 default:
                     break;
             }
+        }
+        else if (!Active)
+        {
+            Move(Vector3.zero);
         }
     }
     private Vector3 Move(Vector3 target)
@@ -196,12 +211,15 @@ public class PlayerController : MonoBehaviour
     }
     private void UseAction()
     {
-        if (recording)
+        if (item != null)
         {
-            RecordMove();
-            RecordUse();
+            if (recording)
+            {
+                RecordMove();
+                RecordUse();
+            }
+            new List<Trigger>(item.GetComponents<Trigger>()).ForEach(a => a.Activate());
         }
-        new List<Trigger>(item.GetComponents<Trigger>()).ForEach(a => a.Activate());
     }
     private void PickupAction(Vector3 direction)
     {
@@ -222,7 +240,7 @@ public class PlayerController : MonoBehaviour
                     RecordMove();
                     RecordPick();
                 }
-                Pickup(pickups[0]);
+                pickups[0].Pick(this);
             }
         }
         else
@@ -238,7 +256,6 @@ public class PlayerController : MonoBehaviour
     public void Pickup(Pickup pickup)
     {
         item = pickup;
-        pickup.Pick();
         pickup.transform.parent = transform;
         pickup.transform.localPosition = new Vector3(0, 0, 1);
         HoldAnimation.Activate(true);

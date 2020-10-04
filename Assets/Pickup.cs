@@ -5,13 +5,14 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     private Rigidbody rigidbody;
-    private void Start()
+    public virtual void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
     }
-    public void Pick()
+    public virtual void Pick(PlayerController player)
     {
         Destroy(rigidbody);
+        player.Pickup(this);
     }
     public void Drop()
     {
