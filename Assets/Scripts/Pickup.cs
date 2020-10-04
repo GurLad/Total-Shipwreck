@@ -6,6 +6,7 @@ public class Pickup : MonoBehaviour
 {
     [HideInInspector]
     public PlayerController Holder;
+    private float Speed = 5;
     private Rigidbody rigidbody;
     public virtual void Start()
     {
@@ -20,5 +21,6 @@ public class Pickup : MonoBehaviour
     public void Drop()
     {
         rigidbody = gameObject.AddComponent<Rigidbody>();
+        rigidbody.velocity = (transform.forward + -transform.up) * Speed;
     }
 }

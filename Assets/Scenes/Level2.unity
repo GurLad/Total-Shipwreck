@@ -184,6 +184,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6b5c5a12ea3e0943b97428186157c3c, type: 3}
+--- !u!1001 &248533941
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 21.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424008, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305280274011424012, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
+      propertyPath: m_Name
+      value: Hole (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 284dcf1ea1c3c09428a2ab6023db774c, type: 3}
 --- !u!1001 &466990404
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -487,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5865934947512987750, guid: 4be63d0040fc81149a0f4bb9dd811e2c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7570692406929915532, guid: 4be63d0040fc81149a0f4bb9dd811e2c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -666,11 +723,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430418095502078747, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4475981243412308465, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6121083402840893877, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Name
@@ -722,15 +779,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403376622917, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Text
-      value: When the timer at the top runs out, it will start raining, which will
-        drastically increase the water rise rate!
+      value: Take some gold from the treasure chest and throw it overboard to reduce
+        the sinking rate!
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403470855298, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Text
-      value: 'Level 1 - Storm
+      value: 'Level 2 - Gold
 
-        The ship is filled with holes again! And there
-        are foreboding clouds on the horizons...'
+
+        The responsible pirates managed to ruin the
+        ship yet again! This time, they may need to get rid of their hard-earned
+        gold to stay afloat...'
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403908113361, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: WaterRiseRate
@@ -738,15 +797,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403908113361, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: SecondsTillRain
-      value: 75
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403971488508, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403999887670, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6121083404313384184, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -755,7 +814,11 @@ PrefabInstance:
     - target: {fileID: 6121083404528365483, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 58f54eb598df0494cb8ed429c28d64c4, type: 3}
+      objectReference: {fileID: 21300000, guid: 197127be6ab5824489f42a3ebf16f034, type: 3}
+    - target: {fileID: 6703831085174437874, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
+      propertyPath: Value
+      value: -3.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
 --- !u!1001 &7305280273467436727

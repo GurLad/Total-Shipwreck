@@ -80,13 +80,13 @@ MonoBehaviour:
   Speed: 6.25
   Force: 5
   ResetForce: 5
-  Accuracy: 1.25
+  Accuracy: 1.85
   RecordRate: 1
-  RecordAccuracy: 0.2
+  RecordAccuracy: 0.25
   RecordTooHighThresold: 2
   RecordTooHighUseThresold: 0.2
-  DistanceToCheck: 0.9
-  SphereRadius: 0.9
+  DistanceToCheck: 0.95
+  SphereRadius: 0.95
   CheckHeight: 1.6
   IdleAnimation: {fileID: 0}
   WalkAnimation: {fileID: 0}

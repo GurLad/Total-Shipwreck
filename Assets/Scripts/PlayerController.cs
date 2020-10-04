@@ -163,9 +163,9 @@ public class PlayerController : MonoBehaviour
                     pos.y = transform.position.y;
                     if (Vector3.Distance(pos, transform.position) <= RecordTooHighThresold + 1 && y - transform.position.y >= RecordTooHighThresold)
                     {
-                        SoundController.PlaySound(TooHigh, Pitch);
-                        followingRecord = false;
-                        recordedActions.Clear();
+                        //SoundController.PlaySound(TooHigh, Pitch);
+                        //followingRecord = false;
+                        //recordedActions.Clear();
                     }
                     transform.LookAt(pos);
                     Vector3 dir = transform.forward;
@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour
             IdleAnimation.Active = false;
         }
         TargetVelocity.y = rigidbody.velocity.y;
-        if ((rigidbody.velocity - TargetVelocity).magnitude <= 1 / Accuracy)
+        if ((rigidbody.velocity - TargetVelocity).magnitude <= Accuracy)
         {
             rigidbody.velocity = TargetVelocity;
         }
@@ -295,6 +295,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            transform.LookAt(transform.position + direction);
             if (recording)
             {
                 RecordMove();
@@ -310,6 +311,7 @@ public class PlayerController : MonoBehaviour
         item = pickup;
         pickup.transform.parent = transform;
         pickup.transform.localPosition = new Vector3(0, 0, 1);
+        //pickup.transform.localEulerAngles = new Vector3(-90, 0, 0);
         HoldAnimation.Activate(true);
     }
     public void Drop(Pickup pickup)
