@@ -90,6 +90,10 @@ public class PlayerController : MonoBehaviour
     }
     protected virtual void Update()
     {
+        if (Time.timeScale == 0)
+        {
+            return;
+        }
         if (Active)
         {
             if (!followingRecord)

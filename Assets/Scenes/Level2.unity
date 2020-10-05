@@ -779,8 +779,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403376622917, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Text
-      value: Take some gold from the treasure chest and throw it overboard to reduce
-        the sinking rate!
+      value: Take some gold from the treasure chest in the cabin behind you and throw
+        it overboard to reduce the sinking rate!
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403470855298, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Text
