@@ -220,7 +220,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -19.999996}
-  m_SizeDelta: {x: -40, y: -80.00001}
+  m_SizeDelta: {x: 0, y: -80.00001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &294008868
 MonoBehaviour:
@@ -267,7 +267,7 @@ MonoBehaviour:
     1-4/Mouse - Switch pirate
 
     As usual,
-    pirates are drunk, so don''t expect much'
+    pirates are drunk, and therefore not very accurate'
 --- !u!222 &294008869
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1245,6 +1245,12 @@ PrefabInstance:
     - target: {fileID: 6121083403123130392, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121083403376622917, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
+      propertyPath: m_Text
+      value: Take buckets to the water, Use them to fill them with water and throw
+        them overboard! You should probably have at least one pirate doing that at
+        all times.
       objectReference: {fileID: 0}
     - target: {fileID: 6121083403470855298, guid: 1b5b10636041fbd4eabacb2e233cbd5b, type: 3}
       propertyPath: m_Text
